@@ -1,8 +1,5 @@
-
-/* importamos la funcion para poder agregar productos al carrito */
 import { agregarProductoAlCarrito } from "./modulos/carrito.js";
 
-/* definimos la direccion del servidor backend y el nombre de la empresa */
 const urlBase = "http://127.0.0.1:3000";
 const nombreEmpresa = "Cachopos xAVI";
 
@@ -156,6 +153,17 @@ export function volverAlMenu() {
     if (mainMenu) mainMenu.classList.remove("hidden");
 }
 
+
+/* funcion para mostrar las redes sociales */
+export function abrirRedes() {
+    alert(`Redes de ${nombreEmpresa}`);
+}
+
+
+/* funcion para mostrar el aviso del cupon */
+export function abrirCupon() {
+    alert("Ingresá tu cupón en el pedido");
+}
 
 
 /* hacemos que las funciones esten disponibles desde el HTML mediante window */
