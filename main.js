@@ -1,15 +1,16 @@
 import { agregarProductoAlCarrito } from "./modulos/carrito.js";
-import { obtenerNombreCliente, esNombreValido } from "./modulos/login.js";
 
 const urlBase = "http://127.0.0.1:3000";
 const nombreEmpresa = "Cachopos xAVI";
 
+const nombreGuardado = (localStorage.getItem("nombreCliente") || "").trim();
+if (nombreGuardado.length < 3 || /\d/.test(nombreGuardado)) {
+    window.location.href = "login.html";
+}
+
 const mainMenu = document.getElementById("main-menu");
 
 export async function abrirSeccion(categoria) {
-
-if (!esNombreValido(obtenerNombreCliente())) return;
-
     const catalogSection = document.getElementById("catalog-section");
     const catalogTitle = document.getElementById("catalog-title");
     const productsGrid = document.getElementById("products-grid");
@@ -18,7 +19,11 @@ if (!esNombreValido(obtenerNombreCliente())) return;
     if (catalogSection) catalogSection.classList.remove("hidden");
 
     if (catalogTitle) {
-        catalogTitle.innerText = categoria === "food" ? "Comidas" : "Bebidas";
+        if (categoria === "food") {
+            catalogTitle.innerText = "Comidas";
+        } else {
+            catalogTitle.innerText = "Bebidas";
+        }
     }
 
     if (productsGrid) productsGrid.innerHTML = "Cargando productos...";
@@ -31,7 +36,12 @@ if (!esNombreValido(obtenerNombreCliente())) return;
         }
 
         const data = await response.json();
-        const productosDB = Array.isArray(data) ? data : (data.payload || []);
+        let productosDB = [];
+        if (Array.isArray(data)) {
+            productosDB = data;
+        } else if (data.payload) {
+            productosDB = data.payload;
+        }
 
         const productosFiltrados = productosDB.filter(prod => {
             return prod.category === categoria && (prod.active === 1 || prod.active === true);
@@ -61,8 +71,13 @@ if (!esNombreValido(obtenerNombreCliente())) return;
             boton.innerText = "Comprar";
 
             boton.addEventListener("click", function () {
+                let idProducto = prod.id;
+                if (!idProducto) {
+                    idProducto = prod._id;
+                }
+
                 agregarProductoAlCarrito(
-                    prod.id ?? prod._id,
+                    idProducto,
                     prod.name,
                     Number(prod.price),
                     prod.image
@@ -95,7 +110,6 @@ export function abrirCupon() {
     alert("Ingresá tu cupón en el pedido");
 }
 
-// Exponer funciones en window para los atributos onclick="" del HTML
 window.abrirSeccion = abrirSeccion;
 window.volverAlMenu = volverAlMenu;
 window.abrirRedes = abrirRedes;

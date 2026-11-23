@@ -10,6 +10,12 @@
 </head>
 
 <body>
+    <script>
+    const nombreGuardado = (localStorage.getItem("nombreCliente") || "").trim();
+    if (nombreGuardado.length < 3 || /\d/.test(nombreGuardado)) {
+        window.location.replace("login.html");
+    }
+    </script>
     <header class="header">
         <div class="header-left">
             <button class="btn-header-action" type="button" onclick="abrirRedes()">
@@ -42,15 +48,7 @@
 
     <!-- MENÚ PRINCIPAL -->
     <main class="main" id="main-menu">
-        <div id="login">
-            <form>
-                <label for="input-nombre">Ingrese su nombre:</label>
-                <input type="text" id="input-nombre" required>
-                <button type="submit" class="btn-login">Ingresar</button>
-            </form>
-        </div>
-
-        <div class="buttons-overlay hidden">
+        <div class="buttons-overlay">
             <button class="btn-main" type="button" onclick="abrirSeccion('food')">
                 Comidas
             </button>
@@ -60,6 +58,7 @@
             </button>
         </div>
     </main>
+
     <!-- CATÁLOGO -->
     <section id="catalog-section" class="catalog-section hidden">
         <div class="catalog-header">
@@ -72,9 +71,8 @@
         <div id="products-grid" class="products-grid"></div>
     </section>
 
-    <!-- FOOTER DINÁMICO: se estira cuando se agregan productos -->
     <footer class="footer">
-        <div id="productos-abajo" class="productos-abajo"></div>
+        <div id="productos-carrito" class="productos-carrito"></div>
     </footer>
 
     <script type="module" src="main.js"></script>

@@ -44,7 +44,7 @@ export function eliminarProducto(id) {
 }
 
 export function renderizarProductosCarrito() {
-    const contenedor = document.getElementById("productos-abajo");
+    const contenedor = document.getElementById("productos-carrito");
     if (!contenedor) return;
 
     contenedor.innerHTML = "";
@@ -53,17 +53,17 @@ export function renderizarProductosCarrito() {
         const subtotal = prod.precio * prod.cantidad;
 
         const card = document.createElement("div");
-        card.classList.add("producto-abajo-card");
+        card.classList.add("producto-carrito-card");
 
         const info = document.createElement("div");
-        info.classList.add("producto-abajo-info");
+        info.classList.add("producto-carrito-info");
 
         const img = document.createElement("img");
         img.src = prod.imagen || "";
         img.alt = prod.nombre;
 
         const datos = document.createElement("div");
-        datos.classList.add("producto-abajo-datos");
+        datos.classList.add("producto-carrito-datos");
 
         const titulo = document.createElement("h4");
         titulo.innerText = prod.nombre;
@@ -77,7 +77,7 @@ export function renderizarProductosCarrito() {
         info.appendChild(datos);
 
         const botones = document.createElement("div");
-        botones.classList.add("producto-abajo-botones");
+        botones.classList.add("producto-carrito-botones");
 
         const btnDisminuir = document.createElement("button");
         btnDisminuir.type = "button";
