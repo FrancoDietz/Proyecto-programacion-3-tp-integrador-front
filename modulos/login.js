@@ -1,23 +1,23 @@
 const formLogin = document.getElementById("form-login");
 const inputNombre = document.getElementById("input-nombre");
 
-function esNombreValido(valor) {
-    const limpio = String(valor || "").trim();
+function esNombreValido(nombre) {
+    const limpio = String(nombre || "").trim();
     if (limpio.length < 3) return false;
     if (/\d/.test(limpio)) return false;
     return true;
 }
 
 if (formLogin) {
-    formLogin.addEventListener("submit", function (e) {
-        e.preventDefault();
+    formLogin.addEventListener("submit", function (session) {
+        session.preventDefault();
 
-        let valor = "";
+        let nombre = "";
         if (inputNombre) {
-            valor = inputNombre.value;
+            nombre = inputNombre.value;
         }
 
-        if (!esNombreValido(valor)) {
+        if (!esNombreValido(nombre)) {
             if (inputNombre) {
                 inputNombre.value = "";
                 inputNombre.focus();
@@ -25,15 +25,7 @@ if (formLogin) {
             return;
         }
 
-        localStorage.setItem("nombreCliente", valor.trim());
+        localStorage.setItem("nombreCliente", nombre.trim());
         window.location.href = "index.html";
     });
-}
-
-function abrirRedes() {
-    alert("Redes de Cachopos xAVI");
-}
-
-function abrirCupon() {
-    alert("Ingresá tu cupón en el pedido");
 }
