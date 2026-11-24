@@ -3,8 +3,8 @@ import { agregarProductoAlCarrito } from "./modulos/carrito.js";
 const urlBase = "http://127.0.0.1:3000";
 const nombreEmpresa = "Cachopos xAVI";
 
-/* recuperamos el nombre del cliente guardado en localstorage y eliminamos espacios sobrantes */
-const nombreGuardado = (localStorage.getItem("nombreCliente") || "").trim();
+/* recuperamos el nombre del cliente guardado en sessionStorage y eliminamos espacios sobrantes */
+const nombreGuardado = (sessionStorage.getItem("nombreCliente") || "").trim();
 
 /* comprobamos que el nombre tenga al menos 3 caracteres y que no contenga numeros */
 if (nombreGuardado.length < 3 || /\d/.test(nombreGuardado)) {

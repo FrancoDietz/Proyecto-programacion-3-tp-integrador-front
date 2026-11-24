@@ -11,7 +11,7 @@
 
 <body>
     <script>
-    const nombreGuardado = (localStorage.getItem("nombreCliente") || "").trim();
+    const nombreGuardado = (sessionStorage.getItem("nombreCliente") || "").trim();
     if (nombreGuardado.length < 3 || /\d/.test(nombreGuardado)) {
         window.location.replace("login.html");
     }
